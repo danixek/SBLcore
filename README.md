@@ -7,9 +7,9 @@
 
 **Komentáře v kódu**, které reflektují architektonické rozhodování, UX a bezpečnostní úvahy.
 
+# Komentáře v kódu
 Projekt si při návrhu rozdělím na podproblémy a tyto poznatky využívám jako **vnitřní motivaci** k postupnému zlepšování produktu –  
 ať už po stránce architektury, bezpečnosti, UX, obchodního modelu či celkové uživatelské zkušenosti.
-
 
 # Spuštění projektu
 
