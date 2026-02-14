@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SBL Core</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <img src="favicon.ico" class="bg-ico" />
+    <header>
+        <nav>
+            <div>
+                <div class="nav">
+                    <div class="nav__left">
+                        <a asp-area="" asp-page="/Index"><img class="logo-small" src="~/logo-SBLCore.svg" /></a>
+                    </div>
+                    <div class="nav__right">
+                        <ul class ="nav__list">
+                            <li class="nav__item">
+                                <a class="nav__link" asp-area="" asp-page="/Login">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            &copy; 2026 - SBL Core
+        </div>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

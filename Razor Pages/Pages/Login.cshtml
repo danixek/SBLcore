@@ -1,0 +1,19 @@
+﻿@page
+@model Razor_Pages.Pages.LoginModel
+
+<img class="logo logo--resized" src="~/logo-SBLCore.svg" />
+<h2>Login</h2>
+
+<p class="login__testuser">Jméno: admin | Heslo: 123456</p>
+
+<form method="post" class="login__form">
+    @Html.AntiForgeryToken()
+    <input type="text" asp-for="Username" class="login__input form--resize" placeholder="Jméno" />
+    <input type="password" asp-for="Password" class="login__input form--resize" placeholder="Heslo" />
+    <button type="submit" class="login__button form--resize">Login</button>
+</form>
+
+
+<div class="login__message">@Model.Message</div>
+@{
+}
