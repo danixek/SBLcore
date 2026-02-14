@@ -1,3 +1,13 @@
+# Popis projektu
+Řešení obsahuje:
+
+**Razor Pages** aplikaci s přihlašovacím formulářem (Username / Password).
+
+**Web API** s autentizací přes JWT token a zabezpečeným endpointem.
+
+**Komentáře v kódu**, které reflektují architektonické rozhodování, UX a bezpečnostní úvahy.
+
+
 # Spuštění projektu
 
 Pro spuštění projektu doporučuji použít pokročilé editory jako Visual Studio Community nebo JetBrains Rider.
