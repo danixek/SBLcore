@@ -26,12 +26,22 @@ namespace Web_API.Controllers
         [AllowAnonymous]
         public IActionResult Login([FromBody] LoginViewModel model)
         {
+            // tento úkol nepočítá s validací prázdného přihlašování
             if (model.Username == "admin" && model.Password == "123456")
             {
                 var token = GenerateJwtToken(model.Username);
                 return Ok(new { token });
             }
 
+            // API - i web obecně - má zpravidla hned několik hlášek
+            // 500 - chyba na straně serveru
+            // 200 - OK
+            // 204 - No content
+            // 401 - Unauthorized
+            // 404 - Not Found
+            // 418 - I am teapot
+
+            // Formát JSON v API by měl mít konzistentní a rozšiřitelnou strukturu
             return Unauthorized("Invalid credentials");
         }
 
@@ -77,9 +87,11 @@ namespace Web_API.Controllers
             };
 
             // Privátní klíč pro podepisování JWT tokenů
-            // ⚠️ Klíč musí být bezpečně uložený, nesmí uniknout na GitHub ani být veřejně dostupný.
+            // Klíč musí být bezpečně uložený, nesmí uniknout na GitHub ani být veřejně dostupný.
             // - V produkci se klíč prakticky nemění, proto riziko jeho změny v projektu není běžné.
-            //   I když jeho umístění v kódu porušuje princip opakování kódu, v tomto případě je to přijatelné.
+            //   I když jeho umístění v kódu porušuje princip opakování kódu, v tomto případě je to "přijatelné",
+            //   ale v produkční webové aplikaci by to tak správně nemohlo být.
+            //
             // - V menších projektech lze klíč uložit do Program.cs nebo do appsettings.Development.json.
             // - Ideálně by byl klíč šifrovaný a hardwarově zabezpečený.
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("VerySuperSecretKeyForJWTVerySuperSecretKey"));

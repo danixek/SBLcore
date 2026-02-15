@@ -3,7 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 // ==================== Reflexe psaní a úpravy kódu ====================
-// ⚠️ Psaní kódu a jeho následné upravování jsou dvě různé disciplíny.
+// Psaní kódu a jeho následné upravování jsou dvě různé disciplíny.
 // Psaní kódu pro trénink a práce s existujícím kódem
 // (jeho úprava a pochopení) jsou dvě odlišné dovednosti.
 // Aby se dovednost psát kód sladila s architekturou a pochopením,
@@ -11,7 +11,7 @@ using System.Text;
 // a následně ji znovu přepsat do poznámkového bloku.
 
 // ==================== Účel zpětných poznámek ====================
-// ⚠️ Poznámky v kódu jsou psány zpětně a reflektivně.
+// Poznámky v kódu jsou psány zpětně a reflektivně.
 // Nevypovídají o běžných pracovních návycích ani o stylu psaní autora.
 // Slouží k vysvětlení architektonického rozhodování, schopnosti kód číst a myšlenkového postupu.
 // Tyto reflexe následně fungují jako podklad pro refaktoring a další profesní rozvoj.
