@@ -42,35 +42,32 @@ namespace Web_API.Controllers
         {
             return Ok(new { Message = "Successfully logged in" });
         }
-        // JWT token – vlastnosti a omezení
-        // Generovaný JWT obsahuje časové razítko (expiraci),
-        // takže výsledný token je při každém přihlášení odlišný, i pro stejného uživatele.
+        // JWT token – vlastnosti
+        // Token obsahuje časovou platnost, takže se při každém přihlášení stejného uživatele mění.
         //
-        // Tento přístup není vhodný, pokud by bylo požadováno deterministické (stateless)
-        // generování identického tokenu pouze na základě identity uživatele.
+        // Tento způsob není ideální, pokud by bylo potřeba mít stejný token pokaždé.
+        // Pokud není možné ukládat tokeny do databáze, lze zvážit jeho podpis pomocí privátního klíče.
+
+
+        // Licence – ukládání a výkon
+        // Ověření licence vyžaduje uložit informaci, že uživatel licenci vlastní.
+        // Například do JSON souboru – funguje to jako jednoduché úložiště,
+        // ale není optimalizované pro více uživatelů najednou.
         //
-        // Pokud nelze použít databázi pro ukládání tokenů nebo jejich hashů,
-        // lze uvažovat o stateless generování identity pomocí kryptografického podpisu (privátní klíč).
+        // Načítání dat probíhá postupně přes všechny položky.
+        // Výkon by se dal zlepšit, pokud by byla data strukturovaná podle hierarchie nebo prefixů,
+        // nebo použitím databáze s indexy, která hledání urychlí.
 
 
-        // Ověření licence a výkonnostní aspekty
-        // Ověření licence vyžaduje uložení informace o vlastnictví,
-        // např. do JSON souboru – ten zde funguje jako jednoduché perzistentní úložiště,
-        // které není optimalizováno pro souběžný přístup více instancí nebo uživatelů.
-        //
-        // Načítání aktuálně probíhá lineárním průchodem dat (O(n), for/foreach).
-        // Výkon by bylo možné zlepšit např. indexací, organizací podle prefixu identifikátoru,
-        // nebo použitím databáze s podporou indexů.
+        // Alternativní přístup
+        // Místo JSON lze využít cookie nebo server-side session s expirací.
 
 
-        // Alternativní přístupy k uchování stavu
-        // Lze využít cookie nebo server-side session s expirací
+        // Obchodní model
+        // Je potřeba rozhodnout, zda licence bude:
+        // - časově omezená (např. 1 rok), nebo
+        // - předplatné s automatickým obnovením a kontrolou na serveru.
 
-
-        // Obchodní model licence
-        // Je nutné definovat, zda licence funguje jako:
-        // - časově omezený klíč (např. 1 rok), nebo
-        // - předplatné s možností obnovení a server-side validací.
         private string GenerateJwtToken(string username)
         {
             var claims = new[]
