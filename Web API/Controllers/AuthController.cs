@@ -42,21 +42,35 @@ namespace Web_API.Controllers
         {
             return Ok(new { Message = "Successfully logged in" });
         }
-        // Generování JWT tokenu pro uživatele
-        // ⚠️ Tento token obsahuje časové razítko (expiraci),
-        // takže hash je při každém přihlášení téhož uživatele odlišný.
-        // V praxi by tento model nebyl vhodný pro čistě stateless autentizaci,
-        // kde byste chtěli, aby přihlášení téhož uživatele vždy generovalo stejný token (id uživatele).
+        // JWT token – vlastnosti a omezení
+        // Generovaný JWT obsahuje časové razítko (expiraci),
+        // takže výsledný token je při každém přihlášení odlišný, i pro stejného uživatele.
         //
-        // Pokud nelze použít databázi pro ukládání tokenů nebo hashů,
-        // lze uvažovat o generování uživatelů "stateless" metodou přes privátní klíč.
-        // Ověření licence by pak vyžadovalo ukládání nějakého záznamu,
-        // např. do JSON souboru – prakticky se tento JSON stává jednoduchou databází bez optimalizace více uživatelů.
-        // Alternativně lze využít server-side cookies s expirací, ale je otázkou optimalizace.
+        // Tento přístup není vhodný, pokud by bylo požadováno deterministické (stateless)
+        // generování identického tokenu pouze na základě identity uživatele.
         //
-        // Také je otázkou obchodního modelu: 
-        // zda zákazník dostane licenční klíč na fixní období (např. 1 rok) 
-        // nebo předplatné s automatickým obnovením.
+        // Pokud nelze použít databázi pro ukládání tokenů nebo jejich hashů,
+        // lze uvažovat o stateless generování identity pomocí kryptografického podpisu (privátní klíč).
+
+
+        // Ověření licence a výkonnostní aspekty
+        // Ověření licence vyžaduje uložení informace o vlastnictví,
+        // např. do JSON souboru – ten zde funguje jako jednoduché perzistentní úložiště,
+        // které není optimalizováno pro souběžný přístup více instancí nebo uživatelů.
+        //
+        // Načítání aktuálně probíhá lineárním průchodem dat (O(n), for/foreach).
+        // Výkon by bylo možné zlepšit např. indexací, organizací podle prefixu identifikátoru,
+        // nebo použitím databáze s podporou indexů.
+
+
+        // Alternativní přístupy k uchování stavu
+        // Lze využít cookie nebo server-side session s expirací
+
+
+        // Obchodní model licence
+        // Je nutné definovat, zda licence funguje jako:
+        // - časově omezený klíč (např. 1 rok), nebo
+        // - předplatné s možností obnovení a server-side validací.
         private string GenerateJwtToken(string username)
         {
             var claims = new[]
